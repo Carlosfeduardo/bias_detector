@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Brain, Zap, Sparkles, ArrowRight } from 'lucide-react';
+import { Search, Brain, Sparkles, ArrowRight } from 'lucide-react';
 
 interface SearchFormProps {
   onAnalyze: (title: string, useAdvanced?: boolean) => void;
@@ -8,12 +8,11 @@ interface SearchFormProps {
 
 export const SearchForm: React.FC<SearchFormProps> = ({ onAnalyze, loading }) => {
   const [title, setTitle] = useState('');
-  const [useAdvanced, setUseAdvanced] = useState(true);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title.trim()) {
-      onAnalyze(title.trim(), useAdvanced);
+      onAnalyze(title.trim(), true); // Sempre usar análise avançada
     }
   };
 
@@ -80,65 +79,6 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onAnalyze, loading }) =>
               </div>
             </div>
 
-            {/* Advanced Options */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-100">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-2 rounded-xl">
-                    <Zap className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <label htmlFor="advanced-detector" className="text-lg font-bold text-gray-800 cursor-pointer">
-                      Detector Avançado
-                    </label>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Análise completa com NLP avançado e múltiplos tipos de viés
-                    </p>
-                  </div>
-                </div>
-                <div className="relative">
-                  <input
-                    id="advanced-detector"
-                    type="checkbox"
-                    checked={useAdvanced}
-                    onChange={(e) => setUseAdvanced(e.target.checked)}
-                    className="sr-only"
-                  />
-                  <div 
-                    onClick={() => setUseAdvanced(!useAdvanced)}
-                    className={`w-14 h-8 rounded-full cursor-pointer transition-all duration-300 ${
-                      useAdvanced 
-                        ? 'bg-gradient-to-r from-blue-500 to-indigo-500 shadow-lg' 
-                        : 'bg-gray-300'
-                    }`}
-                  >
-                    <div className={`w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-300 mt-1 ${
-                      useAdvanced ? 'translate-x-7' : 'translate-x-1'
-                    }`}></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-gray-700">Métricas quantitativas</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-gray-700">Análise semântica avançada</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  <span className="text-gray-700">Detecção de múltiplos vieses</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <span className="text-gray-700">Reformulação de texto</span>
-                </div>
-              </div>
-            </div>
-
             {/* Submit Button */}
             <button
               type="submit"
@@ -174,7 +114,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onAnalyze, loading }) =>
               <div className="flex items-center justify-center space-x-6 text-xs text-gray-500">
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>Análise Instantânea</span>
+                  <span>Análise Avançada</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
