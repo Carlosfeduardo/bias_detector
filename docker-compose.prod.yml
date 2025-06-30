@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: bias-detector-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt:ro
+      - ./certbot/www:/var/www/certbot:ro
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    networks:
+      - bias-detector-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: bias-detector-certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email seu-email@exemplo.com -d biasdetector.online -d www.biasdetector.online --agree-tos
+    depends_on:
+      - nginx
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bias-detector-backend
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./backend/app:/app/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - bias-detector-network
+    expose:
+      - "8000"
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        - REACT_APP_API_URL=https://biasdetector.online/api
+    container_name: bias-detector-frontend
+    depends_on:
+      - backend
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - bias-detector-network
+    expose:
+      - "80"
+
+networks:
+  bias-detector-network:
+    driver: bridge
+
+volumes:
+  backend_data:
+  certbot_conf:
+  certbot_www: 
