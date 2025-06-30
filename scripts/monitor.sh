@@ -136,10 +136,10 @@ check_network() {
     fi
     
     # Verificar resolução DNS
-    if dig +short biasdetector.online | grep -q "103.199.184.185"; then
+    if dig +short biasdetector.online | grep -q "147.93.68.216"; then
         echo -e "${GREEN}✅ DNS: Configurado corretamente${NC}"
     else
-        echo -e "${YELLOW}⚠️  DNS: Não aponta para 103.199.184.185${NC}"
+        echo -e "${YELLOW}⚠️  DNS: Não aponta para 147.93.68.216${NC}"
     fi
 }
 

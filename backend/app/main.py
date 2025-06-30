@@ -47,8 +47,8 @@ app.add_middleware(
         "https://www.biasdetector.online",
         "http://biasdetector.online",
         "http://www.biasdetector.online",
-        "http://103.199.184.185",
-        "https://103.199.184.185"
+        "http://147.93.68.216",
+        "https://147.93.68.216"
     ],
     allow_credentials=True,
     allow_methods=["*"],

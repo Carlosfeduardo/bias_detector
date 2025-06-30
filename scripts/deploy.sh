@@ -6,7 +6,7 @@ set -e
 
 echo "🚀 Iniciando deploy da aplicação Bias Detector"
 echo "🌐 Domínio: biasdetector.online"
-echo "📍 Servidor: 103.199.184.185"
+echo "📍 Servidor: 147.93.68.216"
 echo ""
 
 # Verificar se está rodando como root (necessário para Docker)
@@ -137,7 +137,7 @@ main() {
     echo ""
     echo "🎉 Deploy básico concluído!"
     echo "📋 Próximos passos:"
-    echo "1. Configure seu DNS para apontar biasdetector.online para 103.199.184.185"
+    echo "1. Configure seu DNS para apontar biasdetector.online para 147.93.68.216"
     echo "2. Execute ./scripts/setup-ssl.sh para configurar SSL"
     echo "3. Acesse https://biasdetector.online"
     echo ""

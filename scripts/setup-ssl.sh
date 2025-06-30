@@ -15,7 +15,7 @@ mkdir -p ./nginx/logs
 check_domain() {
     echo "🔍 Verificando se o domínio aponta para este servidor..."
     DOMAIN_IP=$(dig +short biasdetector.online)
-    SERVER_IP="103.199.184.185"
+    SERVER_IP="147.93.68.216"
     
     if [ "$DOMAIN_IP" = "$SERVER_IP" ]; then
         echo "✅ Domínio configurado corretamente!"
@@ -73,7 +73,7 @@ EOF
 # Executar configuração
 main() {
     echo "🌟 Iniciando configuração SSL para biasdetector.online"
-    echo "📍 Servidor: 103.199.184.185"
+    echo "📍 Servidor: 147.93.68.216"
     echo ""
     
     check_domain

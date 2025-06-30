@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Brain, Zap } from 'lucide-react';
+import { Search, Brain, Zap, Sparkles, ArrowRight } from 'lucide-react';
 
 interface SearchFormProps {
   onAnalyze: (title: string, useAdvanced?: boolean) => void;
@@ -22,104 +22,191 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onAnalyze, loading }) =>
     'Machine learning',
     'Redes neurais',
     'Aprendizado de máquina',
-    'Deep learning'
+    'Deep learning',
+    'Processamento de linguagem natural'
   ];
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="text-center mb-6">
-          <div className="flex items-center justify-center mb-4">
-            <Brain className="h-8 w-8 text-blue-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-900">
-              Detector de Viés em IA
-            </h1>
-          </div>
-          <p className="text-gray-600">
-            Analise artigos da Wikipedia sobre Inteligência Artificial em busca de viés textual
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="article-title" className="block text-sm font-medium text-gray-700 mb-2">
-              Título do Artigo da Wikipedia
-            </label>
-            <div className="relative">
-              <input
-                id="article-title"
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="Ex: Inteligência Artificial, Machine Learning, Deep Learning..."
-                className="w-full px-4 py-3 pl-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                disabled={loading}
-              />
-              <Search className="absolute left-3 top-3.5 h-4 w-4 text-gray-400" />
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="advanced-detector"
-                  type="checkbox"
-                  checked={useAdvanced}
-                  onChange={(e) => setUseAdvanced(e.target.checked)}
-                  className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                />
-                <label htmlFor="advanced-detector" className="ml-2 block text-sm text-gray-700">
-                  Usar Detector Avançado
-                </label>
+    <div className="max-w-4xl mx-auto">
+      {/* Main Search Card */}
+      <div className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl border border-white/50 p-8 lg:p-12 relative overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-blue-100/50 to-transparent rounded-full -mr-20 -mt-20"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-100/50 to-transparent rounded-full -ml-16 -mb-16"></div>
+        
+        <div className="relative">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center mb-6">
+              <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-4 rounded-2xl shadow-lg mr-4">
+                <Brain className="h-10 w-10 text-white" />
               </div>
-              <Zap className="h-4 w-4 text-yellow-500" />
+              <div className="text-left">
+                <h2 className="text-3xl lg:text-4xl font-black text-gray-900 mb-2">
+                  Analisador de Artigos
+                </h2>
+                <div className="flex items-center space-x-2 text-gray-600">
+                  <Sparkles className="h-5 w-5 text-blue-500" />
+                  <span className="text-lg font-semibold">Wikipedia + IA</span>
+                </div>
+              </div>
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              {useAdvanced 
-                ? "Análise completa com NLP avançado, métricas quantitativas e mais tipos de viés"
-                : "Análise básica com detecção de padrões fundamentais"
-              }
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Insira o título de um artigo da Wikipedia sobre <span className="text-blue-600 font-bold">Inteligência Artificial</span> 
+              para uma análise detalhada de viés textual
             </p>
           </div>
 
-          <button
-            type="submit"
-            disabled={loading || !title.trim()}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-          >
-            {loading ? (
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Analisando...
+          {/* Search Form */}
+          <form onSubmit={handleSubmit} className="space-y-8">
+            {/* Input Field */}
+            <div className="relative">
+              <label htmlFor="article-title" className="block text-lg font-bold text-gray-800 mb-4">
+                Título do Artigo da Wikipedia
+              </label>
+              <div className="relative group">
+                <input
+                  id="article-title"
+                  type="text"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Ex: Inteligência Artificial, Machine Learning, Deep Learning..."
+                  className="w-full px-6 py-4 pl-14 pr-6 bg-white border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-400 shadow-sm group-hover:shadow-md"
+                  disabled={loading}
+                />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                  <Search className="h-6 w-6 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                </div>
               </div>
-            ) : (
-              <div className="flex items-center justify-center">
-                <Search className="h-4 w-4 mr-2" />
-                Analisar Artigo
-              </div>
-            )}
-          </button>
-        </form>
+            </div>
 
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">
-            Artigos devem ser relacionados à IA e estar disponíveis na Wikipedia em português
-          </p>
+            {/* Advanced Options */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border-2 border-blue-100">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-4">
+                  <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-2 rounded-xl">
+                    <Zap className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <label htmlFor="advanced-detector" className="text-lg font-bold text-gray-800 cursor-pointer">
+                      Detector Avançado
+                    </label>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Análise completa com NLP avançado e múltiplos tipos de viés
+                    </p>
+                  </div>
+                </div>
+                <div className="relative">
+                  <input
+                    id="advanced-detector"
+                    type="checkbox"
+                    checked={useAdvanced}
+                    onChange={(e) => setUseAdvanced(e.target.checked)}
+                    className="sr-only"
+                  />
+                  <div 
+                    onClick={() => setUseAdvanced(!useAdvanced)}
+                    className={`w-14 h-8 rounded-full cursor-pointer transition-all duration-300 ${
+                      useAdvanced 
+                        ? 'bg-gradient-to-r from-blue-500 to-indigo-500 shadow-lg' 
+                        : 'bg-gray-300'
+                    }`}
+                  >
+                    <div className={`w-6 h-6 rounded-full bg-white shadow-md transition-transform duration-300 mt-1 ${
+                      useAdvanced ? 'translate-x-7' : 'translate-x-1'
+                    }`}></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-gray-700">Métricas quantitativas</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-gray-700">Análise semântica avançada</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="text-gray-700">Detecção de múltiplos vieses</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                  <span className="text-gray-700">Reformulação de texto</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={loading || !title.trim()}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-8 rounded-2xl hover:from-blue-700 hover:to-purple-700 focus:ring-4 focus:ring-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:hover:transform-none text-lg font-bold"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center space-x-3">
+                  <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
+                  <span>Analisando artigo...</span>
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                    <div className="w-2 h-2 bg-white rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center space-x-3">
+                  <Search className="h-6 w-6" />
+                  <span>Analisar Artigo</span>
+                  <ArrowRight className="h-6 w-6" />
+                </div>
+              )}
+            </button>
+          </form>
+
+          {/* Footer Info */}
+          <div className="mt-8 text-center">
+            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-6 border border-gray-200">
+              <p className="text-sm text-gray-600 mb-4 font-medium">
+                ✨ <strong>Dica:</strong> Artigos devem ser relacionados à IA e estar disponíveis na Wikipedia em português
+              </p>
+              <div className="flex items-center justify-center space-x-6 text-xs text-gray-500">
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span>Análise Instantânea</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span>Alta Precisão</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span>Relatórios Detalhados</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="text-center mt-6">
-        <p className="text-sm text-gray-500 mb-3">Exemplos de artigos para testar:</p>
-        <div className="flex flex-wrap justify-center gap-2">
-          {exampleTitles.map((example) => (
+      {/* Example Articles */}
+      <div className="mt-8 text-center">
+        <p className="text-lg font-bold text-gray-700 mb-6">💡 Exemplos de artigos para testar:</p>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {exampleTitles.map((example, index) => (
             <button
               key={example}
               onClick={() => setTitle(example)}
-              className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+              className="group p-4 bg-white/80 backdrop-blur-sm border-2 border-gray-200 rounded-2xl hover:border-blue-300 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-md transform hover:-translate-y-1"
               disabled={loading}
             >
-              {example}
+              <div className="text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                {example}
+              </div>
+              <div className="text-xs text-gray-500 mt-1 group-hover:text-blue-500 transition-colors duration-300">
+                Clique para usar
+              </div>
             </button>
           ))}
         </div>
